@@ -12,14 +12,42 @@ var Zap = {
 	*/
 	
 	display_data: function( name, item ) {
-
-		console.log(_____________________________________);
 		console.log("Name:" + name);
 		console.log("Item:");
 		console.log(item);
-
 	},
-	user_input_post_write: function(bundle) {
+
+
+	/*
+	*	Function to create XML output.  Must pass it key value pairs for each field to be added to QB.
+	*	Must pass it an object containing key value pairs example =  {"fid":"value", "fid":"value"} 
+	*	an app ticket and a user token.
+	*/
+
+	create_qb_query_xml: function( fieldValues, appTicket, userToken ) {
+		//xml to return for data query to QB
+		var xml = '';
+		var fieldID;
+		var fieldValue;
+
+		xml = xml + '<qdbapi>';
+		xml = xml + '<usertoken>' + userToken + '</usertoken>';
+		xml = xml + '<apptoken>' + appToken + '</apptoken>';
+
+		
+		//loop through field values and create xml out of it
+		for (var key in fieldValues) {
+			fieldID = key;
+			fieldValue = fieldValues[key];
+			xml = xml + '<field fid="' + fieldID + '">' + fieldValue + '</field>';
+		}//end for
+
+		xml = xml + '</qdbapi>';
+
+		return xml;	
+	},
+	
+	user_input_write: function(bundle) {
 		/*
 		Argument:
 		  bundle.response.status_code: <integer>
@@ -47,4 +75,4 @@ var Zap = {
 
 
 	}
-}
+};
