@@ -24,11 +24,12 @@ var Zap = {
 	*	an app ticket and a user token.
 	*/
 
-	create_qb_query_xml: function( fieldValues, appTicket, userToken ) {
+	create_qb_query_xml: function( fieldValues, appToken, userToken ) {
 		//xml to return for data query to QB
 		var xml = '';
 		var fieldID;
 		var fieldValue;
+
 
 		xml = xml + '<qdbapi>';
 		xml = xml + '<usertoken>' + userToken + '</usertoken>';
@@ -37,9 +38,11 @@ var Zap = {
 		
 		//loop through field values and create xml out of it
 		for (var key in fieldValues) {
-			fieldID = key;
-			fieldValue = fieldValues[key];
-			xml = xml + '<field fid="' + fieldID + '">' + fieldValue + '</field>';
+			if ( fieldValues.hasOwnProperty(key) ) {
+				fieldID = key;
+				fieldValue = fieldValues[key];
+				xml = xml + '<field fid="' + fieldID + '">' + fieldValue + '</field>';
+			}
 		}//end for
 
 		xml = xml + '</qdbapi>';
@@ -69,7 +72,33 @@ var Zap = {
 		return <object>;
 		*/
 
-		console.log(bundle);
+		
+
+
+		/*
+		*	Make query to add record to QuickBase
+		*/
+
+		var tableDBID   = bundle.action_fields_full.table_dbid;
+		var url         = 'https://mcftech.quickbase.com/db/bmc5aqt7s?';
+		var fieldValues = bundle.action_fields_full.fids_values;
+		var userToken   = 'b2pcbi_u55_d4gc8c7cdmtxyufqr655dwzfvsc';
+		var appToken    = 'chibjr8c32gdsfe4a6gjdm58tid';
+		var data        = Zap.create_qb_query_xml(fieldValues, appToken, userToken);
+
+		var request = {
+			'method': 'POST',
+			'url': url,
+			'headers': {
+				'Content-Type': 'application/xml',
+				'QUICKBASE-ACTION': 'API_AddRecord'
+			},
+			'data': data
+		};	
+		console.log("1");
+		var response = z.request( request );
+
+		console.log(response);
 
 		return {};
 
