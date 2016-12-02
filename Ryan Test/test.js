@@ -82,8 +82,8 @@ var Zap = {
 		var tableDBID   = bundle.action_fields_full.table_dbid;
 		var url         = bundle.auth_fields.url + 'db/' + tableDBID + '?';
 		var fieldValues = bundle.action_fields_full.fids_values;
-		var userToken   = 'b2pcbi_u55_d4gc8c7cdmtxyufqr655dwzfvsc';
-		var appToken    = 'chibjr8c32gdsfe4a6gjdm58tid';
+		var userToken   = bundle.auth_fields.user_token;
+		var appToken    = bundle.auth_fields.app_token;
 		var data        = Zap.create_qb_query_xml(fieldValues, appToken, userToken);
 
 		var request = {
@@ -95,7 +95,7 @@ var Zap = {
 			},
 			'data': data
 		};	
-		console.log("1");
+		
 		var response = z.request( request );
 
 		console.log(response);
