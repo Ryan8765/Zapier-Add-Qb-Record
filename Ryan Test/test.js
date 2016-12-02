@@ -80,7 +80,7 @@ var Zap = {
 		*/
 
 		var tableDBID   = bundle.action_fields_full.table_dbid;
-		var url         = 'https://mcftech.quickbase.com/db/bmc5aqt7s?';
+		var url         = bundle.auth_fields.url + 'db/' + tableDBID + '?';
 		var fieldValues = bundle.action_fields_full.fids_values;
 		var userToken   = 'b2pcbi_u55_d4gc8c7cdmtxyufqr655dwzfvsc';
 		var appToken    = 'chibjr8c32gdsfe4a6gjdm58tid';
