@@ -49,6 +49,19 @@ var Zap = {
 
 		return xml;	
 	},
+
+
+	/*
+	*	Get RID of record added to QB using api_addrecord.  Provide the response object from z.request addrecord to QB as parameter. 
+	*/
+	rid_of_addRecord: function( response ) {
+		var qbXMLResponseString = response.content;
+		var qbXMLResponseXML    = $.parseXML(qbXMLResponseString);
+		var RID                 = $(qbXMLResponseXML).find('rid').text();
+
+		return RID;
+	},
+	
 	
 	user_input_write: function(bundle) {
 		/*
@@ -96,9 +109,12 @@ var Zap = {
 			'data': data
 		};	
 		
-		var response = z.request( request );
+		var response  = z.request( request );
+		//get rid of record added
+		var parentRID = Zap.rid_of_addRecord( response );
 
-		console.log(response);
+
+		console.log("parent id is" + parentRID);
 
 		return {};
 
