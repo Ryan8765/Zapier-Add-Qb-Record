@@ -19,7 +19,7 @@ var Zap = {
 
 
 	/*
-	*	Function to create XML output.  Must pass it key value pairs for each field to be added to QB.
+	*	Function to create XML output.  
 	*	Must pass it an object containing key value pairs example =  {"fid":"value", "fid":"value"} 
 	*	an app ticket and a user token.
 	*/
@@ -98,6 +98,9 @@ var Zap = {
 		var userToken   = bundle.auth_fields.user_token;
 		var appToken    = bundle.auth_fields.app_token;
 		var data        = Zap.create_qb_query_xml(fieldValues, appToken, userToken);
+
+	
+		
 
 		var request = {
 			'method': 'POST',
